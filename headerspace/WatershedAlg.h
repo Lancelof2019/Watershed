@@ -24,7 +24,7 @@ class WatershedAlg{
 public:
 Mat makeImageGrayScale(Mat image);
 
-Mat thresholdOtsu(Mat image);
+Mat thresholdMeasure(Mat image);
 
 Mat antiInverseImage(Mat image);
 
