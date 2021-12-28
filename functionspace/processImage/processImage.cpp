@@ -8,7 +8,7 @@ void WatershedAlg::processImage(Mat image,Mat duplImage)  {
         cv::waitKey(0);
 
         // Apply threshold
-        image = thresholdOtsu(image);
+        image = thresholdMeasure(image);
         cv::imshow("thresholdOtsu",image);
         cv::waitKey(0);
        
