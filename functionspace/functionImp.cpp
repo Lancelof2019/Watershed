@@ -67,25 +67,6 @@ Mat WatershedAlg::thresholdOtsu(Mat image) {
 
 
 
-
-
-Mat WatershedAlg::inverseImage(Mat image) {
-        for(int i = 0; i < image.rows; i++) {
-
-            for(int j = 0; j < image.cols; j++) {
-                if( (int) image.at<uchar>(i,j) == ZERO ) {
-                    image.at<uchar>(i,j) = ONE;
-                } else {
-                    image.at<uchar>(i,j) = ZERO;
-                }
-            }
-        }
-
-        return image;
-    }
-
-
-
 Mat WatershedAlg::antiInverseImage(Mat image) {
         for(int i = 0; i < image.rows; i++) {
 
@@ -158,7 +139,7 @@ Mat WatershedAlg::erosion(Mat image, vector< vector <int> > kernel) {
     }
 
 
-
+//Distance Transformation is used by manhantan distance (D4 - city block)
 Mat WatershedAlg::distanceTransform(Mat image, vector<Point> &markers) {
         vector< vector<double> > distanceMap(image.rows, vector<double>(image.cols, 0));
         Mat markerImage(image.rows, image.cols, CV_8UC3, Scalar::all(0));
