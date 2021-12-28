@@ -26,8 +26,6 @@ Mat makeImageGrayScale(Mat image);
 
 Mat thresholdOtsu(Mat image);
 
-Mat inverseImage(Mat image);
-
 Mat antiInverseImage(Mat image);
 
 Mat erosion(Mat image, vector< vector <int> > kernel);
