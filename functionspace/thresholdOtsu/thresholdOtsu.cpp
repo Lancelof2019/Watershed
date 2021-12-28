@@ -1,7 +1,7 @@
 #include "/opt/project_space/test_mnist/HPC_comb_code/MA/Watershed_Algorithm/headerspace/WatershedAlg.h"
 using namespace cv;
 
-Mat WatershedAlg::thresholdOtsu(Mat image) {
+Mat WatershedAlg::thresholdMeasure(Mat image) {
     
 
         //threshold(image, image,ZERO,ONE, CV_THRESH_BINARY |         CV_THRESH_OTSU);
