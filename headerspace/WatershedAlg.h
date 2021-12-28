@@ -5,18 +5,14 @@
 #include<iostream>
 #include <fstream>
 #include <opencv2/opencv.hpp>
-#include<queue>
 #include <vector>
 #include<random>
 #include <cv.h>
 #include <opencv2/core.hpp>
 #include <opencv2/imgcodecs.hpp>
 #include <opencv2/highgui.hpp>
-#include <iostream>
 #include <queue>
 #include<string>
-using namespace cv;
-using namespace std;
 #define ZERO 0
 #define ONE 254
 #define STEP 1
