@@ -2,9 +2,7 @@
 using namespace cv;
 
 Mat WatershedAlg::watershed(Mat image, vector<Point> const &markers,Mat duplImage) {
- 
-        string filename5="/opt/test5.txt";
-        ofstream fout5(filename5);
+
         priority_queue<Pixel,vector<Pixel>,Compare> prioq;//compare the value of image.at<uchar>(i,j)
         Mat markerImage(image.rows, image.cols, CV_8UC3, Scalar::all(0));
             vector<cv::Vec3b> colors{ {0, 0, 0} };
@@ -13,7 +11,7 @@ Mat WatershedAlg::watershed(Mat image, vector<Point> const &markers,Mat duplImag
             vecColor[0] = rand()%255+0;
             vecColor[1] = rand()%255+1;
             vecColor[2] = rand()%255+2;
-            //vecColor[3] = 0.5;
+            
             
             colors.push_back(vecColor);
         }
@@ -26,10 +24,9 @@ Mat WatershedAlg::watershed(Mat image, vector<Point> const &markers,Mat duplImag
 
         // Put markers in priority queue
         int id = 1;
-        Mat testDuplicate=duplImage;
-        Mat dstImage;
-  
-
+        Mat testDuplicate;
+        duplImage.copyTo(testDuplicate);
+        Mat dstImage(duplImage.rows,duplImage.cols,CV_8UC3,Scalar::all(0));
         for(auto marker: markers) {
      
             markerMap[marker.x][marker.y] = id;
@@ -39,15 +36,9 @@ Mat WatershedAlg::watershed(Mat image, vector<Point> const &markers,Mat duplImag
                 int newX = marker.x + dx[i];
                 int newY = marker.y + dy[i];
                 if(newX < 0 || newY < 0 || newX >= image.rows || newY >= image.cols) {
-                    continue;
+                   continue;
                 }
-                cout<<"The current marker point:"<<marker<<endl;
-                cout<<(int)image.at<uchar>(marker.x, marker.y)<<endl;
-                cout<<"----------------"<<endl;
-                cout<<"next position:"<<"["<<newX<<","<<newY<<"]"<<endl;
-                cout<<(int)image.at<uchar>(newX, newY)<<endl;
-
-                prioq.push( Pixel( (int) image.at<uchar>(newX, newY), newX, newY) );//start from the neighuobors who got bigger value
+            prioq.push( Pixel( (int) image.at<uchar>(newX, newY), newX, newY) );//start from the neighuobors who got bigger value
                 
             }
 
@@ -55,42 +46,6 @@ Mat WatershedAlg::watershed(Mat image, vector<Point> const &markers,Mat duplImag
         }
 
 
-
-              cout<<"The first time when the next points,the size is: "<<prioq.size()<<endl;
-
-              priority_queue<Pixel,vector<Pixel>,Compare> tmp_prioq;
-
-              tmp_prioq=prioq;
-
-     
-         string filename7="/opt/test7.txt";
-         ofstream fout7(filename7);
-         for(int i = 0; i < image.rows; i++) {
-           for(int j = 0; j < image.cols; j++) {
-
-             fout7<<markerMap[i][j]<<",";
-             
-
-         }
-           fout7<<endl;
-     }
-          fout7.close();
-
-          //each marker got its position and its neighbour<--> ^ and V
-      
-        cv::imshow("test2.jpg",image);
-        cv::waitKey(0);
-        for(int i = 0; i < image.rows; i++) {
-            for(int j = 0; j < image.cols; j++) {
-
-             fout5<<((int)markerMap[i][j])<<",";
-             
-
-        }
-         fout5<<endl;
-     }
-     fout5.close();
-     
         while(!prioq.empty()) {
             Pixel curpoint = prioq.top(); prioq.pop();//store the neighbours near ctrx and ctry
 
@@ -124,14 +79,16 @@ Mat WatershedAlg::watershed(Mat image, vector<Point> const &markers,Mat duplImag
 
             if(canLabel&&(int)image.at<uchar>(curpoint.x,curpoint.y)!=0) {
                 
-                markerMap[curpoint.x][curpoint.y] = neighboursLabel;
+               markerMap[curpoint.x][curpoint.y] = neighboursLabel;
                duplImage.at<Vec3b>(curpoint.x,curpoint.y)=colors[ markerMap[curpoint.x][curpoint.y] ];
          
                 
             }
          
         }
-        cv::addWeighted(duplImage,1.5,testDuplicate,0.3,0,dstImage);
-    
+        cv::addWeighted(duplImage,0.4,testDuplicate,0.6,0,dstImage);
+        image.release();
+        duplImage.release();
+        testDuplicate.release();
         return dstImage;
     }
