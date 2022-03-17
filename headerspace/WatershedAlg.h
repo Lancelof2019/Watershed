@@ -42,7 +42,7 @@ Mat distanceTransform(Mat image, vector<Point> &markers);
 Mat watershed(Mat image, vector<Point> const &markers,Mat duplImage);
 
 Mat contourFun(Mat image);
-//bool comp(Point a,Point b);
+
 void removeholesopt(Mat& src, int pnumlThrshold, int handlingType, int neighbourType,int pixelThreshhold);
 
 void processImage(Mat image,Mat duplImage) ;
