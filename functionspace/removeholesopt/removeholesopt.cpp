@@ -18,13 +18,8 @@ void WatershedAlg::removeholesopt(Mat& src,int pnumThrshold, int handlingType, i
     vector<vector<Point>> contours;  
     vector<cv::Vec4i> hierarchy; 
     findContours(Pointlabel,contours,hierarchy,RETR_TREE,CHAIN_APPROX_SIMPLE,Point()); 
-    Mat imageContours=Mat::zeros(Pointlabel.size(),CV_8UC1);  
-    Mat contouroutput=Mat::zeros(Pointlabel.size(),CV_8UC1);   
     Point p=Point(0,0);
-
-
-
-   if (!contours.empty() && !hierarchy.empty()) {
+    if (!contours.empty() && !hierarchy.empty()) {
 		vector<vector<Point> >::const_iterator couit = contours.begin();
 		
 		while (itc != contours.end()) {
