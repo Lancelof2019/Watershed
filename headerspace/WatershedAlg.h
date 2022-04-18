@@ -16,6 +16,7 @@
 #include <queue>
 #include<string>
 #include <cstdlib>
+#include<omp.h>
 using namespace cv;
 using namespace std;
 #define ZERO 0
