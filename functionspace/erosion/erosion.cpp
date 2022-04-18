@@ -16,7 +16,9 @@ Mat WatershedAlg::erosion(Mat image, vector< vector <int> > kernel) {
     int m = kernel[0].size();
     image.release();
     vector< vector < bool> > shouldBeZeroImage(dill.rows, vector<bool>(dill.cols, false));
+        #pragma omp parallel for
         for(int i = n / 2; i < dill.rows - n / 2; i++) {
+            #pragma omp parallel for
             for(int j = m / 2; j < dill.cols - m / 2; j++) {
 
                 // Loop the kernel
@@ -37,7 +39,7 @@ Mat WatershedAlg::erosion(Mat image, vector< vector <int> > kernel) {
                 }
             }
         }
-
+        #pragma omp parallel for
         for(int i = 0; i < dill.rows; i++) {
             for(int j = 0; j < dill.cols; j++) {
                 if(shouldBeZeroImage[i][j]) {

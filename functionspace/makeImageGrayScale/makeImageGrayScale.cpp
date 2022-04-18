@@ -4,7 +4,9 @@ using namespace cv;
 Mat WatershedAlg::makeImageGrayScale(Mat image) {
 
       Mat grayScale(image.rows, image.cols, CV_8UC1, Scalar::all(0));
+      #pragma omp parallel for
       for(int i = 0; i < image.rows; i++) {
+           #pragma omp parallel for
           for(int j = 0; j < image.cols; j++) {
              double gray = 0.21 * image.at<cv::Vec3b>(i,j)[0] +
                            0.72 * image.at<cv::Vec3b>(i,j)[1] +
