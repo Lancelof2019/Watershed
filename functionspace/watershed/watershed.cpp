@@ -5,16 +5,21 @@ Mat WatershedAlg::watershed(Mat image, vector<Point> const &markers,Mat duplImag
 
         priority_queue<Pixel,vector<Pixel>,Compare> prioq;//compare the value of image.at<uchar>(i,j)
         Mat markerImage(image.rows, image.cols, CV_8UC3, Scalar::all(0));
-            vector<cv::Vec3b> colors{ {0, 0, 0} };
-            for(int i = 1; i <= markers.size()+1; i++) {
+        vector<cv::Vec3b> colors{ {0, 0, 0} };
+        for(int i = 1; i <= markers.size()+1; i++) {
             Vec3b vecColor;
-            vecColor[0] = rand()%255+0;
-            vecColor[1] = rand()%255+1;
-            vecColor[2] = rand()%255+2;
+
+             #pragma omp parallel for
+             for(int j=0;j<3;j++){
+
+             vecColor[j] = rand()%255+j;
+
+             }
             
             
             colors.push_back(vecColor);
         }
+  
   
         
         vector<vector<int>> markerMap(image.rows, vector<int>(image.cols, 0));
