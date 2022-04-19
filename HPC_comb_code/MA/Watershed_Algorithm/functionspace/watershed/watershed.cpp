@@ -32,24 +32,31 @@ Mat WatershedAlg::watershed(Mat image, vector<Point> const &markers,Mat duplImag
         Mat testDuplicate;
         duplImage.copyTo(testDuplicate);
         Mat dstImage(duplImage.rows,duplImage.cols,CV_8UC3,Scalar::all(0));
-        for(auto marker: markers) {
+       #pragma omp parallel for
+       for(vector<Point>::iterator markit=markers.begin();markit<markers.end();markit++) {
      
-            markerMap[marker.x][marker.y] = id;
-            
+            markerMap[(*markit).x][(*markit).y] = id;
+   
             for(int i = 0; i < 4; i++) {
 
-                int newX = marker.x + dx[i];
-                int newY = marker.y + dy[i];
+                int newX = (*markit).x + dx[i];
+                int newY = (*markit).y + dy[i];
                 if(newX < 0 || newY < 0 || newX >= image.rows || newY >= image.cols) {
-                   continue;
+                    continue;
                 }
-            prioq.push( Pixel( (int) image.at<uchar>(newX, newY), newX, newY) );//start from the neighuobors who got bigger value
+                //cout<<"The current marker point:"<<marker<<endl;
+               // cout<<(int)image.at<uchar>(marker.x, marker.y)<<endl;
+               // cout<<"----------------"<<endl;
+               // cout<<"next position:"<<"["<<newX<<","<<newY<<"]"<<endl;
+               // cout<<(int)image.at<uchar>(newX, newY)<<endl;
+
+                prioq.push( Pixel( (int) image.at<uchar>(newX, newY), newX, newY) );//start from the neighuobors who got bigger value
                 
             }
 
             id++;
         }
-
+        
 
         while(!prioq.empty()) {
             Pixel curpoint = prioq.top(); prioq.pop();//store the neighbours near ctrx and ctry
