@@ -1,0 +1,25 @@
+{
+    "C_Cpp.errorSquiggles": "Disabled",
+    "files.associations": {
+        "array": "cpp",
+        "string_view": "cpp",
+        "iostream": "cpp",
+        "hash_map": "cpp",
+        "bitset": "cpp",
+        "chrono": "cpp",
+        "algorithm": "cpp",
+        "iosfwd": "cpp",
+        "ostream": "cpp",
+        "vector": "cpp",
+        "*.tcc": "cpp",
+        "initializer_list": "cpp",
+        "utility": "cpp",
+        "cstdlib": "cpp",
+        "fstream": "cpp",
+        "*.ipp": "cpp",
+        "deque": "cpp",
+        "list": "cpp",
+        "string": "cpp",
+        "unordered_map": "cpp"
+    }
+}
