@@ -21,12 +21,12 @@ void WatershedAlg::lapseedFunc(Mat &Img){
     Mat channelArr[3];
     cv::Laplacian( Img, dst, ddepth, kernel_size, scale, delta, BORDER_DEFAULT );
     cv::convertScaleAbs(dst,absdst);
-    cv::imshow("Laplacian",absdst);
-    cv::waitKey(0);
+  //  cv::imshow("Laplacian",absdst);
+   // cv::waitKey(0);
     cv::split(absdst,channelArr);
     combImg=channelArr[0]+channelArr[1]+channelArr[2];
-    cv::imshow("seed Lap",combImg);
-    cv::waitKey(0);
+ //   cv::imshow("seed Lap",combImg);
+//    cv::waitKey(0);
     #pragram omp parallel for
     for(int i = 0; i < combImg.rows; i++) {
          #pragram omp parallel for
@@ -39,10 +39,10 @@ void WatershedAlg::lapseedFunc(Mat &Img){
                 }
             }
         }
-    cv::imshow("seed Lap compare",combImg);
-    cv::waitKey(0);
-    cout<<"The number of  imgPos is :"<<imgPos.size()<<endl;
-    cout<<"The number of Pcounter is:"<<ratio*imgPos.size()<<endl;
+  //  cv::imshow("seed Lap compare",combImg);
+ //   cv::waitKey(0);
+  //  cout<<"The number of  imgPos is :"<<imgPos.size()<<endl;
+  //  cout<<"The number of Pcounter is:"<<ratio*imgPos.size()<<endl;
     srand(unsigned(time(0)));
     vector<int> vnum;
     #pragram omp parallel for
@@ -57,7 +57,7 @@ void WatershedAlg::lapseedFunc(Mat &Img){
     for(int count=0;count<=Pcounter;count++){
       zerosImg.at<uchar>(imgPos.at(vnum.at(count)).x,imgPos.at(vnum.at(count)).y)=255;
      }
-      cv::imshow("randomly chosen",zerosImg);
-      cv::waitKey(0);
+   //   cv::imshow("randomly chosen",zerosImg);
+    //  cv::waitKey(0);
 
 }
