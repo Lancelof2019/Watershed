@@ -21,13 +21,12 @@ void WatershedAlg::lapseedFunc(Mat &Img){
     Mat channelArr[3];
     cv::Laplacian( Img, dst, ddepth, kernel_size, scale, delta, BORDER_DEFAULT );
     cv::convertScaleAbs(dst,absdst);
-    cv::imshow("Laplacian",absdst);
-    cv::waitKey(0);
+
     cv::split(absdst,channelArr);
     combImg=channelArr[0]+channelArr[1]+channelArr[2];
-    cv::imshow("seed Lap",combImg);
-    cv::waitKey(0);
+    #pragma omp parallel for
     for(int i = 0; i < combImg.rows; i++) {
+         #pragma omp parallel for
          for(int j = 0; j < combImg.cols; j++) {
              if( (int) combImg.at<uchar>(i,j) > THVALUE) {
                  combImg.at<uchar>(i,j) = 255;
@@ -37,19 +36,17 @@ void WatershedAlg::lapseedFunc(Mat &Img){
                 }
             }
         }
-    cv::imshow("seed Lap compare",combImg);
-    cv::waitKey(0);
-    cout<<"The number of  imgPos is :"<<imgPos.size()<<endl;
-    cout<<"The number of Pcounter is:"<<ratio*imgPos.size()<<endl;
+
     srand(unsigned(time(0)));
     vector<int> vnum;
+    #pragma omp parallel for
     for(int u=0;u<imgPos.size();u++){
      vnum.push_back(u);
     }
     Mat zerosImg=cv::Mat::zeros(combImg.rows,combImg.cols,CV_8UC1);
     std::random_shuffle(vnum.begin(),vnum.end());
     Pcounter=(int)(ratio*imgPos.size());
-    cout<<"The number of Pcounter"<<Pcounter<<endl;
+    #pragma omp parallel for
     for(int count=0;count<=Pcounter;count++){
       zerosImg.at<uchar>(imgPos.at(vnum.at(count)).x,imgPos.at(vnum.at(count)).y)=255;
      }
