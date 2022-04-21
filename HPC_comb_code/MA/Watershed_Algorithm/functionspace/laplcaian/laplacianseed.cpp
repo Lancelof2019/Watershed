@@ -27,7 +27,9 @@ void WatershedAlg::lapseedFunc(Mat &Img){
     combImg=channelArr[0]+channelArr[1]+channelArr[2];
     cv::imshow("seed Lap",combImg);
     cv::waitKey(0);
+    #pragram omp parallel for
     for(int i = 0; i < combImg.rows; i++) {
+         #pragram omp parallel for
          for(int j = 0; j < combImg.cols; j++) {
              if( (int) combImg.at<uchar>(i,j) > THVALUE) {
                  combImg.at<uchar>(i,j) = 255;
@@ -43,13 +45,15 @@ void WatershedAlg::lapseedFunc(Mat &Img){
     cout<<"The number of Pcounter is:"<<ratio*imgPos.size()<<endl;
     srand(unsigned(time(0)));
     vector<int> vnum;
+    #pragram omp parallel for
     for(int u=0;u<imgPos.size();u++){
      vnum.push_back(u);
     }
     Mat zerosImg=cv::Mat::zeros(combImg.rows,combImg.cols,CV_8UC1);
     std::random_shuffle(vnum.begin(),vnum.end());
     Pcounter=(int)(ratio*imgPos.size());
-    cout<<"The number of Pcounter"<<Pcounter<<endl;
+    //cout<<"The number of Pcounter"<<Pcounter<<endl;
+    #pragram omp parallel for
     for(int count=0;count<=Pcounter;count++){
       zerosImg.at<uchar>(imgPos.at(vnum.at(count)).x,imgPos.at(vnum.at(count)).y)=255;
      }
