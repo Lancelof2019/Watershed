@@ -51,9 +51,9 @@ void WatershedAlg::lapseedFunc(Mat &Img){
     //grayImg=cv::cvtColor(combImg,cv::COLOR;
     cv::imshow("seed Lap",combImg);
     cv::waitKey(0);
-
+         #pragma o,p parallel for
          for(int i = 0; i < combImg.rows; i++) {
-
+            #pragma o,p parallel for
             for(int j = 0; j < combImg.cols; j++) {
                 if( (int) combImg.at<uchar>(i,j) > THVALUE) {
                     combImg.at<uchar>(i,j) = 255;
@@ -75,7 +75,7 @@ void WatershedAlg::lapseedFunc(Mat &Img){
 
     //vector<Point> posVector;
     vector<int> vnum;
-
+    #pragma o,p parallel for
     for(int u=0;u<imgPos.size();u++){
 
 
@@ -89,7 +89,7 @@ void WatershedAlg::lapseedFunc(Mat &Img){
     
     Pcounter=(int)(ratio*imgPos.size());
     cout<<"The number of Pcounter"<<Pcounter<<endl;
-
+     #pragma o,p parallel for
      for(int count=0;count<=Pcounter;count++){
      
         //cout<<"The pos is x :"<<imgPos.at(count).x<<endl;
