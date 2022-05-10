@@ -8,7 +8,6 @@
 #include<queue>
 #include <vector>
 #include<random>
-#include <cv.h>
 #include <opencv2/core.hpp>
 #include <opencv2/imgcodecs.hpp>
 #include <opencv2/highgui.hpp>
@@ -40,7 +39,7 @@ Mat erosion(Mat image, vector< vector <int> > kernel);
 
 Mat distanceTransform(Mat image, vector<Point> &markers);
 
-Mat watershed(Mat image, vector<Point> const &markers,Mat duplImage);
+Mat watershed(Mat image, vector<Point> &markers,Mat duplImage);
 
 Mat contourFun(Mat image);
 
