@@ -23,7 +23,7 @@ void WatershedAlg::removeholesopt(Mat& src,int pnumThrshold, int handlingType, i
     if (!contours.empty() && !hierarchy.empty()) {
 		vector<vector<Point> >::const_iterator couit = contours.begin();
 		
-		while (itc != contours.end()) {
+		while (couit != contours.end()) {
 		
 			cv::Rect countourposition = cv::boundingRect(Mat(*couit));
 			
