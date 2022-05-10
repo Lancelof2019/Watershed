@@ -1,7 +1,7 @@
 #include "/opt/project_space/test_mnist/HPC_comb_code/MA/Watershed_Algorithm/headerspace/WatershedAlg.h"
 using namespace cv;
 
-Mat WatershedAlg::watershed(Mat image, vector<Point> const &markers,Mat duplImage) {
+Mat WatershedAlg::watershed(Mat image, vector<Point> &markers,Mat duplImage) {
 
         priority_queue<Pixel,vector<Pixel>,Compare> prioq;//compare the value of image.at<uchar>(i,j)
         Mat markerImage(image.rows, image.cols, CV_8UC3, Scalar::all(0));
